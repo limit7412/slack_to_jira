@@ -1,0 +1,10 @@
+
+\.serverless/
+
+\.aot/
+
+\.packages
+
+bootstrap
+
+.dart_tool/
