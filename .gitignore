@@ -8,3 +8,5 @@
 bootstrap
 
 .dart_tool/
+
+env.yml
