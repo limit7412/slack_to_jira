@@ -10,7 +10,9 @@ class DraftUsecase {
     // await queue.putQueue(text, userID, channelID);
     final slack = new SlackRepository(Platform.environment['WEBHOOK_URL']);
 
-    await slack.sendPost([new SlackPost('', 'test', '', text, '', '')]);
+    await slack.sendPost([
+      new SlackPost('', 'test', '', text.replaceFirst('@', '<あっと>'), '', '')
+    ]);
   }
 
   Future<void> err(err, StackTrace stack) async {
