@@ -8,16 +8,16 @@ void main() {
     final uc = new DraftUsecase();
     try {
       final Map<String, dynamic> body = json.decode(event['body']);
+      if (body['token'] != Platform.environment['SLACK_TOKEN']) {
+        throw Exception("token does not match");
+      }
+
       switch (body['type']) {
         case "url_verification":
-          if (body['token'] == Platform.environment['TOKEN']) {
-            return {
-              'statusCode': 200,
-              'body': json.encode({'challenge': body['challenge']}),
-            };
-          } else {
-            throw Exception("token does not match");
-          }
+          return {
+            'statusCode': 200,
+            'body': json.encode({'challenge': body['challenge']}),
+          };
           break;
 
         default:
@@ -31,6 +31,19 @@ void main() {
       return {
         'statusCode': 400,
         'body': json.encode({'msg': err.toString()}),
+      };
+    } catch (err, stack) {
+      await uc.err(err, stack);
+      throw err;
+    }
+  });
+
+  lambdaHandler("echo", (event) async {
+    final uc = new DraftUsecase();
+    try {
+      return {
+        'statusCode': 200,
+        'body': event['body'],
       };
     } catch (err, stack) {
       await uc.err(err, stack);

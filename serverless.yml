@@ -18,3 +18,9 @@ functions:
       - http:
           path: subscribe
           method: post
+  echo:
+    handler: echo
+    events:
+      - http:
+          path: echo
+          method: post
