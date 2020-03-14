@@ -21,7 +21,7 @@ void main() {
           break;
 
         default:
-          await uc.run(body.toString());
+          await uc.run(body['event']['text']);
           return {
             'statusCode': 200,
             'body': json.encode({'msg': 'ok'}),
