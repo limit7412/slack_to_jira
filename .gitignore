@@ -1,0 +1,12 @@
+
+\.serverless/
+
+\.aot/
+
+\.packages
+
+bootstrap
+
+.dart_tool/
+
+env.yml
