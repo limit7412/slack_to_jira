@@ -6,13 +6,17 @@ class DraftUsecase {
   DraftUsecase();
 
   Future<void> run(String text) async {
-    // final queue = new SearchQueueRepository();
-    // await queue.putQueue(text, userID, channelID);
-    final slack = new SlackRepository(Platform.environment['WEBHOOK_URL']);
+    final jira = new JiraRepository();
 
-    await slack.sendPost([
-      new SlackPost('', 'test', '', text.replaceFirst('@', '<あっと>'), '', '')
-    ]);
+    final isSuccess = await jira.createTask(
+        new JiraTask(Platform.environment['JIRA_PROJECT'], text, text));
+
+    if (isSuccess) {
+      final slack = new SlackRepository(Platform.environment['WEBHOOK_URL']);
+      await slack.sendPost([new SlackPost('', '課題を作成しました', '', '', '', '')]);
+    } else {
+      throw 'faild to create task.';
+    }
   }
 
   Future<void> err(err, StackTrace stack) async {

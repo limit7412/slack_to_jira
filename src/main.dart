@@ -20,13 +20,18 @@ void main() {
           };
           break;
 
-        default:
-          await uc.run(body['event']['text']);
-          return {
-            'statusCode': 200,
-            'body': json.encode({'msg': 'ok'}),
-          };
+        case "event_callback":
+          if (body['event']['text']
+              .contains(Platform.environment['CONTAINS'])) {
+            await uc.run(body['event']['text']);
+          }
+          break;
       }
+
+      return {
+        'statusCode': 200,
+        'body': json.encode({'msg': 'ok'}),
+      };
     } on Exception catch (err) {
       return {
         'statusCode': 400,
