@@ -16,6 +16,9 @@ void main() {
         case "url_verification":
           return {
             'statusCode': 200,
+            'headers': {
+              'Content-Type': 'application/json',
+            },
             'body': json.encode({'challenge': body['challenge']}),
           };
           break;
@@ -29,11 +32,17 @@ void main() {
 
       return {
         'statusCode': 200,
+        'headers': {
+          'Content-Type': 'application/json',
+        },
         'body': json.encode({'msg': 'ok'}),
       };
     } on Exception catch (err) {
       return {
         'statusCode': 400,
+        'headers': {
+          'Content-Type': 'application/json',
+        },
         'body': json.encode({'msg': err.toString()}),
       };
     } catch (err, stack) {
@@ -47,6 +56,9 @@ void main() {
     try {
       return {
         'statusCode': 200,
+        'headers': {
+          'Content-Type': 'application/json',
+        },
         'body': event['body'],
       };
     } catch (err, stack) {
