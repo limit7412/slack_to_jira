@@ -14,10 +14,7 @@ class DraftUsecase {
     final isSuccess = await jira.createTask(new JiraTask(
         Platform.environment['JIRA_PROJECT'], summary, description));
 
-    if (isSuccess) {
-      final slack = new SlackRepository(Platform.environment['WEBHOOK_URL']);
-      await slack.sendPost([new SlackPost('', '課題を作成しました', '', '', '', '')]);
-    } else {
+    if (!isSuccess) {
       throw 'faild to create task.';
     }
   }
