@@ -22,7 +22,7 @@ class DraftUsecase {
   Future<void> err(err, StackTrace stack) async {
     final slack =
         new SlackRepository(Platform.environment['ALERT_WEBHOOK_URL']);
-    final fallback = 'エラーみたい…確認してみよっか';
+    final fallback = 'Warning! An internal error has occurred!';
 
     await slack.sendPost([
       new SlackPost(
