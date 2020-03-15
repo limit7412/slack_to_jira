@@ -4,7 +4,6 @@
 
 ## 環境変数
 ```
-WEBHOOK_URL: 起票が成功したことを報告する先のslack webhook（あくまで動作確認用、動作に問題がなければ廃止予定）
 ALERT_WEBHOOK_URL: 内部エラーのアラート先webhook
 SLACK_ID: アラート時のメンション先
 SLACK_TOKEN: Event Subscriptionsのtoken
