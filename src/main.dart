@@ -17,9 +17,9 @@ void main() {
           return {
             'statusCode': 200,
             'headers': {
-              'Content-Type': 'application/json',
+              'Content-Type': 'text/plain',
             },
-            'body': json.encode({'challenge': body['challenge']}),
+            'body': body['challenge'],
           };
           break;
 
@@ -39,7 +39,8 @@ void main() {
       };
     } on Exception catch (err) {
       return {
-        'statusCode': 400,
+        // NOTE: It is set to 200 to display Response in the console of slack API
+        'statusCode': 200,
         'headers': {
           'Content-Type': 'application/json',
         },
