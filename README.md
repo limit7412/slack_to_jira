@@ -24,4 +24,4 @@ JIRA_TOKEN: ベーシック認証のパスワード
     - 要: dart2native, sls
   - build.sh
     - slsが使えない環境用で手動アップロードのためにzipを作成
-    - 要: dart2native
+    - 要: docker

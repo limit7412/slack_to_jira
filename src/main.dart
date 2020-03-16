@@ -24,6 +24,9 @@ void main() {
           break;
 
         case "event_callback":
+          if (body['event']['text'] == null) {
+            break;
+          }
           if (body['event']['text'].contains(Platform.environment['TARGET']) &&
               body['event']['thread_ts'] == null) {
             await uc.run(body['event']['text']);
