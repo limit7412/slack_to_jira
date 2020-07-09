@@ -1,0 +1,40 @@
+name: dart-sls
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  deploy:
+    name: deploy
+    runs-on: ubuntu-latest
+    container:
+      image: google/dart:latest
+
+    steps:
+
+    - name: checkout
+      uses: actions/checkout@v1
+
+    - name: pub get
+      run: pub get
+
+    - name: build
+      run: dart2native ./src/main.dart -o ./bootstrap
+
+    - name: install aws
+      run: apt-get -y update && apt-get -y install awscli
+
+    - name: configure aws
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ap-northeast-1
+
+    - name: create zip
+      run: zip slack_to_jira ./bootstrap
+
+    - name: push s3
+      run: |
+        aws s3 cp slack_to_jira.zip s3://limit7412-workflow-dist/lambda/
