@@ -40,7 +40,7 @@ jobs:
       uses: actions/setup-node@v1
 
     - name: install sls
-      run: npm i serverless
+      run: npm i -g serverless
 
     - name: deploy
       run: sls deploy -s prod > /dev/null
