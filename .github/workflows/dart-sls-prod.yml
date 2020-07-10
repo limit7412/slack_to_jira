@@ -2,7 +2,7 @@ name: dart-sls
 
 on:
   push:
-    branches: [ develop ]
+    branches: [ master ]
 
 jobs:
   deploy:
