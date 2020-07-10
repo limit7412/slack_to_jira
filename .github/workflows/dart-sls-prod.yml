@@ -43,4 +43,4 @@ jobs:
       run: npm i serverless
 
     - name: deploy
-      run: sls deploy -s prod > /dev/null 2>&1
+      run: sls deploy -s prod > /dev/null
