@@ -36,10 +36,11 @@ jobs:
       run: |
         aws s3 cp s3://limit7412-workflow-env/slack_to_jira/dev/env.yml .
 
+    - name: setup node.js
+      uses: actions/setup-node@v1
+
+    - name: install sls
+      run: npm i -g serverless
+
     - name: deploy
-      uses: serverless/github-action@master
-      with:
-        args: deploy -s dev
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run: sls deploy -s dev > /dev/null
