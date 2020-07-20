@@ -7,6 +7,9 @@ void main() {
   lambdaHandler("subscribe", (event) async {
     final uc = new DraftUsecase();
     try {
+      if (event['body'] == null) {
+        throw Exception("request body is nothing");
+      }
       final Map<String, dynamic> body = json.decode(event['body']);
       if (body['token'] != Platform.environment['SLACK_TOKEN']) {
         throw Exception("token does not match");
