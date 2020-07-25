@@ -1,4 +1,4 @@
-name: dart-sls-dev
+name: dart-sls
 
 on:
   push:
