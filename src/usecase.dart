@@ -6,7 +6,9 @@ class DraftUsecase {
   DraftUsecase();
 
   Future<void> run(String text) async {
-    final description = text.replaceAll(Platform.environment['TARGET'], '');
+    final description = text
+        .replaceAll(Platform.environment['TARGET'], '')
+        .replaceAll(RegExp(r'\<.*?\>'), '');
     final summary =
         description.length > 40 ? description.substring(0, 40) : description;
 
