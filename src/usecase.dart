@@ -6,13 +6,15 @@ class DraftUsecase {
   DraftUsecase();
 
   Future<void> run(String text) async {
-    final description = text.replaceAll(Platform.environment['TARGET'], '');
+    final description = text
+        .replaceAll(Platform.environment['TARGET'], '')
+        .replaceAll(RegExp(r'\<.*?\>'), '');
     final summary =
         description.length > 40 ? description.substring(0, 40) : description;
 
     final jira = new JiraRepository();
     final isSuccess = await jira.createTask(new JiraTask(
-        Platform.environment['JIRA_PROJECT'], summary, description));
+        Platform.environment['JIRA_PROJECT'], summary, description, ""));
 
     if (!isSuccess) {
       throw 'faild to create task.';
