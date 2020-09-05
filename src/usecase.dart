@@ -14,7 +14,7 @@ class DraftUsecase {
 
     final jira = new JiraRepository();
     final isSuccess = await jira.createTask(new JiraTask(
-        Platform.environment['JIRA_PROJECT'], summary, description, ""));
+        Platform.environment['JIRA_PROJECT'], summary, description));
 
     if (!isSuccess) {
       throw 'faild to create task.';
