@@ -8,22 +8,16 @@ jobs:
   deploy:
     name: deploy
     runs-on: ubuntu-latest
-    container:
-      image: google/dart:latest
-
     steps:
+
+    - name: setup node.js
+      uses: actions/setup-node@v1
+
+    - name: install sls
+      run: npm i -g serverless
 
     - name: checkout
       uses: actions/checkout@v1
-
-    - name: pub get
-      run: pub get
-
-    - name: build
-      run: dart2native ./src/main.dart -o ./bootstrap
-
-    - name: install aws
-      run: apt-get -y update && apt-get -y install awscli
 
     - name: configure aws
       uses: aws-actions/configure-aws-credentials@v1
@@ -36,11 +30,13 @@ jobs:
       run: |
         aws s3 cp s3://limit7412-workflow-env/slack_to_jira/dev/env.yml .
 
-    - name: setup node.js
-      uses: actions/setup-node@v1
-
-    - name: install sls
-      run: npm i -g serverless
+    - name: build
+      env:
+        REPOSITORY: build-image
+      run: |
+        docker build -t $REPOSITORY .
+        docker run --name $REPOSITORY -d $REPOSITORY /bin/sh
+        docker cp $REPOSITORY:/work/bootstrap .
 
     - name: deploy
-      run: sls deploy -s dev > /dev/null
+      run: sls deploy --stage dev > /dev/null

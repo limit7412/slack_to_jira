@@ -1,16 +1,10 @@
 #!/bin/bash
 
-stg=$1
-[ "$stg" = "" ] && stg="dev"
+region="ap-northeast-1"
+container="slack_to_jira_local"
 
-rm -rf ./bootstrap
-pub get || exit 1
-
-# TODO: change use cross compile
-# dart2native ./src/main.dart -o ./bootstrap &&
-# sudo chmod 755 ./bootstrap || exit 1
-sudo docker run --rm -v $(pwd):/work -w /work google/dart bash -c "pub get && dart2native ./src/main.dart -o ./bootstrap" &&
-sudo chmod 755 ./bootstrap || exit 1
-pub get
+docker run --name $container -d $container /bin/sh
+docker cp $container:/work/bootstrap .
+docker rm $container
 
 zip slack_to_jira ./bootstrap
