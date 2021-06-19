@@ -1,5 +1,5 @@
 # slack_to_jira
-![dart-sls](https://github.com/limit7412/slack_to_jira/workflows/dart-sls/badge.svg)
+[![serverless](https://github.com/limit7412/slack_to_jira/actions/workflows/serverless-prod.yml/badge.svg?branch=master)](https://github.com/limit7412/slack_to_jira/actions/workflows/serverless-prod.yml)
 
   - slackに来る問い合わせとかをjiraのタスクに自動で起こすように
   - dart、serverless framework
