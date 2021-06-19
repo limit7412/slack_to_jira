@@ -1,8 +1,8 @@
-name: dart-sls
+name: serverless
 
 on:
   push:
-    branches: [ develop ]
+    branches: [ master ]
 
 jobs:
   deploy:
@@ -28,7 +28,7 @@ jobs:
 
     - name: get env
       run: |
-        aws s3 cp s3://limit7412-workflow-env/slack_to_jira/dev/env.yml .
+        aws s3 cp s3://limit7412-workflow-env/slack_to_jira/prod/env.yml .
 
     - name: build
       env:
@@ -39,4 +39,4 @@ jobs:
         docker cp $REPOSITORY:/work/bootstrap .
 
     - name: deploy
-      run: sls deploy --stage dev > /dev/null
+      run: sls deploy --stage prod > /dev/null
